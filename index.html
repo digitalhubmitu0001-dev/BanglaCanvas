@@ -8,17 +8,143 @@
 }
 #bc-app{display:flex;flex-direction:column;height:660px;border:0.5px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface-0)}
 /* TOPBAR */
-#bc-top{display:flex;align-items:center;gap:10px;padding:0 16px;height:50px;background:var(--bc-dark);flex-shrink:0}
-.bc-logo{font-family:'Hind Siliguri',sans-serif;font-size:17px;font-weight:700;color:#fff}
-.bc-logo em{color:var(--bc-gold);font-style:normal}
-.bc-tagline{font-size:11px;color:rgba(255,255,255,0.4);font-family:'Hind Siliguri',sans-serif;border-left:1px solid rgba(255,255,255,0.15);padding-left:10px}
-.bc-top-right{margin-left:auto;display:flex;align-items:center;gap:8px}
-.bc-search{background:rgba(255,255,255,0.1);border:0.5px solid rgba(255,255,255,0.15);color:#fff;border-radius:6px;padding:5px 10px 5px 28px;font-size:12px;width:160px;font-family:'Hind Siliguri',sans-serif;outline:none}
-.bc-search::placeholder{color:rgba(255,255,255,0.35)}
-.bc-search-wrap{position:relative}
-.bc-search-wrap i{position:absolute;left:8px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.4);font-size:13px}
-.bc-pill{font-size:10px;padding:3px 8px;border-radius:10px;font-family:'Inter',sans-serif;font-weight:500;cursor:pointer;border:0.5px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.7);background:rgba(255,255,255,0.05)}
-.bc-pill.pro{background:var(--bc-gold);color:#fff;border-color:var(--bc-gold)}
+/* =========================
+   PREMIUM TOP NAVBAR
+========================= */
+
+#bc-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:72px;
+    padding:0 28px;
+    background:linear-gradient(135deg,#0f172a,#111827,#1e293b);
+    border-bottom:1px solid rgba(255,255,255,.08);
+    backdrop-filter:blur(18px);
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.bc-logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-family:'Inter',sans-serif;
+    font-size:26px;
+    font-weight:800;
+    color:#fff;
+    letter-spacing:-.5px;
+}
+
+.bc-logo::before{
+    content:"🎨";
+    width:44px;
+    height:44px;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#7c3aed,#3b82f6);
+    box-shadow:0 10px 30px rgba(124,58,237,.35);
+    font-size:20px;
+}
+
+.bc-logo em{
+    color:#8b5cf6;
+    font-style:normal;
+}
+
+.bc-tagline{
+    margin-left:15px;
+    padding-left:15px;
+    border-left:1px solid rgba(255,255,255,.08);
+    color:#94a3b8;
+    font-size:13px;
+    font-weight:500;
+    font-family:'Inter',sans-serif;
+}
+
+.bc-top-right{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-left:auto;
+}
+
+.bc-search-wrap{
+    position:relative;
+}
+
+.bc-search-wrap i{
+    position:absolute;
+    left:16px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#94a3b8;
+    font-size:18px;
+}
+
+.bc-search{
+    width:340px;
+    height:46px;
+    border-radius:14px;
+    border:none;
+    outline:none;
+    background:rgba(255,255,255,.06);
+    color:#fff;
+    padding-left:48px;
+    padding-right:18px;
+    font-size:14px;
+    transition:.3s;
+    font-family:'Inter',sans-serif;
+}
+
+.bc-search::placeholder{
+    color:#94a3b8;
+}
+
+.bc-search:hover{
+    background:rgba(255,255,255,.09);
+}
+
+.bc-search:focus{
+    background:rgba(255,255,255,.12);
+    box-shadow:0 0 0 3px rgba(124,58,237,.25);
+}
+
+.bc-pill{
+    height:42px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0 18px;
+    border-radius:12px;
+    background:rgba(255,255,255,.06);
+    color:#e2e8f0;
+    cursor:pointer;
+    transition:.25s;
+    font-family:'Inter',sans-serif;
+    font-size:13px;
+    font-weight:600;
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.bc-pill:hover{
+    background:rgba(255,255,255,.12);
+    transform:translateY(-2px);
+}
+
+.bc-pill.pro{
+    background:linear-gradient(135deg,#7c3aed,#2563eb);
+    color:#fff;
+    border:none;
+    box-shadow:0 12px 30px rgba(124,58,237,.35);
+}
+
+.bc-pill.pro:hover{
+    transform:translateY(-2px) scale(1.03);
+}
 /* BODY */
 #bc-body{display:flex;flex:1;overflow:hidden}
 /* SIDEBAR */
@@ -92,95 +218,47 @@
 </style>
 
 <div id="bc-app" style="position:relative">
-  <div id="bc-top">
-    <div class="bc-logo">Bangla<em>Canvas</em></div>
-    <div class="bc-tagline">বাংলার ডিজাইন প্ল্যাটফর্ম</div>
+<div id="bc-top">
+
+    <div style="display:flex;align-items:center;">
+
+        <div class="bc-logo">
+            Bangla<em>Canvas</em>
+        </div>
+
+        <div class="bc-tagline">
+            Premium Bengali Design Platform
+        </div>
+
+    </div>
+
     <div class="bc-top-right">
-      <div class="bc-search-wrap">
-        <i class="ti ti-search" aria-hidden="true"></i>
-        <input class="bc-search" type="text" id="bc-search" placeholder="Template খুঁজুন...">
-      </div>
-      <div class="bc-pill">Free Plan</div>
-      <div class="bc-pill pro">Pro আপগ্রেড</div>
+
+        <div class="bc-search-wrap">
+            <i class="ti ti-search"></i>
+
+            <input
+                class="bc-search"
+                type="text"
+                id="bc-search"
+                placeholder="Search templates, categories..."
+            >
+        </div>
+
+        <div class="bc-pill">
+            ⭐ Favorites
+        </div>
+
+        <div class="bc-pill">
+            📁 My Designs
+        </div>
+
+        <div class="bc-pill pro">
+            🚀 Upgrade Pro
+        </div>
+
     </div>
-  </div>
 
-  <div id="bc-body">
-    <div id="bc-sidebar" id="sidebar-scroll"></div>
-
-    <div id="bc-main">
-      <div id="bc-gallery">
-        <div class="bc-gallery-head">
-          <h2 id="bc-cat-title">ঈদ-উল-ফিতর</h2>
-          <span id="bc-cat-count">10 templates</span>
-        </div>
-        <div class="bc-grid" id="bc-grid"></div>
-      </div>
-
-      <div id="bc-editor">
-        <div class="bc-ed-head">
-          <h3>সম্পাদনা করুন</h3>
-          <p id="bc-ed-sub">একটি template বেছে নিন</p>
-        </div>
-        <div id="bc-empty">
-          <i class="ti ti-layout-cards" aria-hidden="true"></i>
-          <p>বাম দিক থেকে<br>একটি template<br>select করুন</p>
-        </div>
-        <div id="bc-edform">
-          <div id="bc-preview">
-            <div id="bc-pcard">
-              <div class="bc-pc-arabic" id="pc-arabic"></div>
-              <div class="bc-pc-main" id="pc-main"></div>
-              <div class="bc-pc-sub" id="pc-sub"></div>
-              <div class="bc-pc-name" id="pc-name-disp"></div>
-            </div>
-          </div>
-          <div id="bc-controls">
-            <div class="bc-ctrl">
-              <label>প্রধান লেখা</label>
-              <input type="text" id="ctrl-main">
-            </div>
-            <div class="bc-ctrl">
-              <label>সাব-লেখা</label>
-              <input type="text" id="ctrl-sub">
-            </div>
-            <div class="bc-ctrl">
-              <label>নাম / প্রতিষ্ঠান</label>
-              <input type="text" id="ctrl-name" placeholder="আপনার নাম">
-            </div>
-            <div class="bc-ctrl">
-              <label>তারিখ / স্থান</label>
-              <input type="text" id="ctrl-date" placeholder="তারিখ বা স্থান">
-            </div>
-            <div class="bc-divider"></div>
-            <div class="bc-ctrl">
-              <label>রঙ পরিবর্তন</label>
-              <div class="bc-color-row" id="bc-colors"></div>
-            </div>
-            <div class="bc-divider"></div>
-            <div class="bc-font-section">
-              <label><i class="ti ti-typography" aria-hidden="true"></i> Font নির্বাচন</label>
-              <div class="bc-font-grid" id="bc-fonts"></div>
-              <div class="bc-font-upload" id="bc-font-upload" style="margin-top:5px">
-                <i class="ti ti-upload" aria-hidden="true"></i>
-                নিজের Font আপলোড করুন <span class="bc-pro-badge">PRO</span>
-              </div>
-            </div>
-            <div class="bc-divider"></div>
-            <div class="bc-ctrl">
-              <label>Card আকার</label>
-              <div class="bc-size-row" id="bc-sizes"></div>
-            </div>
-          </div>
-          <div id="bc-actions">
-            <button class="bc-dl-btn" id="bc-dl"><i class="ti ti-download" aria-hidden="true"></i> ডাউনলোড</button>
-            <button class="bc-save-btn" title="সংরক্ষণ করুন"><i class="ti ti-bookmark" aria-hidden="true"></i></button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="bc-toast" id="bc-toast"></div>
 </div>
 
 <script>
