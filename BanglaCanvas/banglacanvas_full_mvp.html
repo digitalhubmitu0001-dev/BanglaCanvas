@@ -1,0 +1,578 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;700&family=Tiro+Bangla&family=Inter:wght@400;500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bc-dark:#0A2318;--bc-green:#0F3D2E;--bc-mid:#1A6B3C;--bc-gold:#C8962E;
+  --bc-gold-light:#E8B84A;--bc-cream:#FDF8F0;--bc-light:#E8F5EE;
+}
+#bc-app{display:flex;flex-direction:column;height:660px;border:0.5px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface-0)}
+/* TOPBAR */
+#bc-top{display:flex;align-items:center;gap:10px;padding:0 16px;height:50px;background:var(--bc-dark);flex-shrink:0}
+.bc-logo{font-family:'Hind Siliguri',sans-serif;font-size:17px;font-weight:700;color:#fff}
+.bc-logo em{color:var(--bc-gold);font-style:normal}
+.bc-tagline{font-size:11px;color:rgba(255,255,255,0.4);font-family:'Hind Siliguri',sans-serif;border-left:1px solid rgba(255,255,255,0.15);padding-left:10px}
+.bc-top-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.bc-search{background:rgba(255,255,255,0.1);border:0.5px solid rgba(255,255,255,0.15);color:#fff;border-radius:6px;padding:5px 10px 5px 28px;font-size:12px;width:160px;font-family:'Hind Siliguri',sans-serif;outline:none}
+.bc-search::placeholder{color:rgba(255,255,255,0.35)}
+.bc-search-wrap{position:relative}
+.bc-search-wrap i{position:absolute;left:8px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.4);font-size:13px}
+.bc-pill{font-size:10px;padding:3px 8px;border-radius:10px;font-family:'Inter',sans-serif;font-weight:500;cursor:pointer;border:0.5px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.7);background:rgba(255,255,255,0.05)}
+.bc-pill.pro{background:var(--bc-gold);color:#fff;border-color:var(--bc-gold)}
+/* BODY */
+#bc-body{display:flex;flex:1;overflow:hidden}
+/* SIDEBAR */
+#bc-sidebar{width:200px;flex-shrink:0;background:var(--surface-1);border-right:0.5px solid var(--border);overflow-y:auto;display:flex;flex-direction:column}
+.bc-group-label{font-size:9px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;padding:10px 12px 4px;font-family:'Inter',sans-serif;position:sticky;top:0;background:var(--surface-1);z-index:1}
+.bc-cat{display:flex;align-items:center;gap:6px;padding:5px 12px;cursor:pointer;border-left:2px solid transparent;font-family:'Hind Siliguri',sans-serif;font-size:13px;color:var(--text-secondary);transition:all 0.12s;line-height:1.3}
+.bc-cat:hover{background:var(--surface-2);color:var(--text-primary)}
+.bc-cat.active{border-left-color:var(--bc-gold);background:var(--surface-2);color:var(--text-primary);font-weight:600}
+.bc-cat i{font-size:13px;color:var(--text-muted);width:16px;flex-shrink:0}
+.bc-cat.active i{color:var(--bc-gold)}
+.bc-cat-count{margin-left:auto;font-size:9px;color:var(--text-muted);font-family:'Inter',sans-serif;background:var(--surface-0);border-radius:8px;padding:1px 5px}
+/* MAIN */
+#bc-main{flex:1;display:flex;overflow:hidden}
+/* GALLERY */
+#bc-gallery{flex:1;overflow-y:auto;padding:14px}
+.bc-gallery-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.bc-gallery-head h2{font-family:'Hind Siliguri',sans-serif;font-size:14px;font-weight:600;color:var(--text-primary)}
+.bc-gallery-head span{font-size:11px;color:var(--text-muted)}
+.bc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px}
+.bc-tcard{border-radius:8px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:all 0.13s;aspect-ratio:0.72;position:relative}
+.bc-tcard:hover{border-color:rgba(200,150,46,0.5);transform:translateY(-1px)}
+.bc-tcard.sel{border-color:var(--bc-gold)}
+.bc-tcard-inner{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 7px;gap:3px}
+.bc-tcard-arabic{font-size:14px;opacity:0.85;line-height:1}
+.bc-tcard-main{font-family:'Hind Siliguri',sans-serif;font-weight:700;text-align:center;line-height:1.2}
+.bc-tcard-sub{font-family:'Hind Siliguri',sans-serif;text-align:center;opacity:0.65;line-height:1.2}
+.bc-tcard-hover{position:absolute;inset:0;background:rgba(0,0,0,0.5);opacity:0;display:flex;align-items:center;justify-content:center;transition:opacity 0.12s;border-radius:6px}
+.bc-tcard:hover .bc-tcard-hover{opacity:1}
+.bc-tcard-hover span{color:#fff;font-size:10px;font-family:'Hind Siliguri',sans-serif;background:rgba(200,150,46,0.92);padding:3px 9px;border-radius:4px}
+/* EDITOR */
+#bc-editor{width:260px;flex-shrink:0;border-left:0.5px solid var(--border);display:flex;flex-direction:column;background:var(--surface-1)}
+.bc-ed-head{padding:10px 14px;border-bottom:0.5px solid var(--border);background:var(--surface-2)}
+.bc-ed-head h3{font-family:'Hind Siliguri',sans-serif;font-size:13px;font-weight:600}
+.bc-ed-head p{font-size:10px;color:var(--text-muted);margin-top:1px}
+#bc-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--text-muted);text-align:center;padding:16px}
+#bc-empty i{font-size:28px}
+#bc-empty p{font-size:11px;font-family:'Hind Siliguri',sans-serif;line-height:1.5}
+#bc-edform{display:none;flex-direction:column;flex:1;overflow:hidden}
+#bc-preview{display:flex;align-items:center;justify-content:center;padding:14px;background:var(--surface-0);border-bottom:0.5px solid var(--border)}
+#bc-pcard{width:120px;height:168px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px 8px;gap:4px;box-shadow:0 2px 12px rgba(0,0,0,0.2)}
+.bc-pc-arabic{font-size:18px;line-height:1}
+.bc-pc-main{font-weight:700;text-align:center;line-height:1.2;font-size:12px}
+.bc-pc-sub{font-size:8px;text-align:center;opacity:0.7;line-height:1.3}
+.bc-pc-name{font-size:8px;text-align:center;opacity:0.55;margin-top:2px}
+#bc-controls{flex:1;overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.bc-ctrl label{font-size:9px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.06em}
+.bc-ctrl input[type=text]{width:100%;font-family:'Hind Siliguri',sans-serif;font-size:12px;padding:5px 8px;border:0.5px solid var(--border-strong);border-radius:5px;background:var(--surface-2);color:var(--text-primary);outline:none}
+.bc-ctrl input[type=text]:focus{border-color:var(--bc-gold)}
+.bc-divider{height:0.5px;background:var(--border);margin:2px 0}
+.bc-font-section label{font-size:9px;font-weight:600;color:var(--text-muted);display:flex;align-items:center;gap:4px;margin-bottom:5px;text-transform:uppercase;letter-spacing:0.06em}
+.bc-font-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.bc-font-btn{padding:4px 6px;border-radius:4px;border:0.5px solid var(--border-strong);cursor:pointer;background:var(--surface-2);color:var(--text-secondary);font-size:10px;text-align:center;transition:all 0.11s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bc-font-btn.active{background:var(--bc-green);color:#fff;border-color:var(--bc-green)}
+.bc-font-btn.pro-font{opacity:0.5;cursor:default;position:relative}
+.bc-font-btn.pro-font::after{content:'PRO';position:absolute;top:1px;right:2px;font-size:7px;color:var(--bc-gold);font-weight:700}
+.bc-font-upload{border:0.5px dashed var(--border-strong);border-radius:5px;padding:6px;text-align:center;cursor:pointer;color:var(--text-muted);font-size:10px;font-family:'Hind Siliguri',sans-serif;display:flex;align-items:center;justify-content:center;gap:4px;opacity:0.6}
+.bc-font-upload:hover{opacity:1;border-color:var(--bc-gold)}
+.bc-color-row{display:flex;gap:5px;flex-wrap:wrap}
+.bc-cdot{width:20px;height:20px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all 0.11s;flex-shrink:0}
+.bc-cdot.active{border-color:var(--text-primary);transform:scale(1.2)}
+.bc-size-row{display:flex;gap:4px}
+.bc-size-btn{flex:1;padding:3px;border-radius:4px;border:0.5px solid var(--border-strong);cursor:pointer;background:var(--surface-2);color:var(--text-muted);font-size:9px;text-align:center;transition:all 0.11s}
+.bc-size-btn.active{background:var(--bc-green);color:#fff;border-color:var(--bc-green)}
+#bc-actions{padding:10px 14px;border-top:0.5px solid var(--border);display:flex;gap:6px}
+.bc-dl-btn{flex:1;padding:8px;background:var(--bc-green);color:#fff;border:none;border-radius:6px;font-family:'Hind Siliguri',sans-serif;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px}
+.bc-dl-btn:hover{background:var(--bc-mid)}
+.bc-save-btn{padding:8px 10px;background:var(--surface-2);color:var(--text-secondary);border:0.5px solid var(--border-strong);border-radius:6px;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center}
+.bc-save-btn:hover{background:var(--surface-0)}
+.bc-toast{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);background:var(--bc-green);color:#fff;padding:5px 14px;border-radius:12px;font-size:11px;font-family:'Hind Siliguri',sans-serif;display:none;z-index:99;white-space:nowrap}
+.bc-pro-badge{font-size:8px;background:var(--bc-gold);color:#fff;padding:1px 4px;border-radius:3px;font-family:'Inter',sans-serif;font-weight:700;vertical-align:middle;margin-left:3px}
+</style>
+
+<div id="bc-app" style="position:relative">
+  <div id="bc-top">
+    <div class="bc-logo">Bangla<em>Canvas</em></div>
+    <div class="bc-tagline">বাংলার ডিজাইন প্ল্যাটফর্ম</div>
+    <div class="bc-top-right">
+      <div class="bc-search-wrap">
+        <i class="ti ti-search" aria-hidden="true"></i>
+        <input class="bc-search" type="text" id="bc-search" placeholder="Template খুঁজুন...">
+      </div>
+      <div class="bc-pill">Free Plan</div>
+      <div class="bc-pill pro">Pro আপগ্রেড</div>
+    </div>
+  </div>
+
+  <div id="bc-body">
+    <div id="bc-sidebar" id="sidebar-scroll"></div>
+
+    <div id="bc-main">
+      <div id="bc-gallery">
+        <div class="bc-gallery-head">
+          <h2 id="bc-cat-title">ঈদ-উল-ফিতর</h2>
+          <span id="bc-cat-count">10 templates</span>
+        </div>
+        <div class="bc-grid" id="bc-grid"></div>
+      </div>
+
+      <div id="bc-editor">
+        <div class="bc-ed-head">
+          <h3>সম্পাদনা করুন</h3>
+          <p id="bc-ed-sub">একটি template বেছে নিন</p>
+        </div>
+        <div id="bc-empty">
+          <i class="ti ti-layout-cards" aria-hidden="true"></i>
+          <p>বাম দিক থেকে<br>একটি template<br>select করুন</p>
+        </div>
+        <div id="bc-edform">
+          <div id="bc-preview">
+            <div id="bc-pcard">
+              <div class="bc-pc-arabic" id="pc-arabic"></div>
+              <div class="bc-pc-main" id="pc-main"></div>
+              <div class="bc-pc-sub" id="pc-sub"></div>
+              <div class="bc-pc-name" id="pc-name-disp"></div>
+            </div>
+          </div>
+          <div id="bc-controls">
+            <div class="bc-ctrl">
+              <label>প্রধান লেখা</label>
+              <input type="text" id="ctrl-main">
+            </div>
+            <div class="bc-ctrl">
+              <label>সাব-লেখা</label>
+              <input type="text" id="ctrl-sub">
+            </div>
+            <div class="bc-ctrl">
+              <label>নাম / প্রতিষ্ঠান</label>
+              <input type="text" id="ctrl-name" placeholder="আপনার নাম">
+            </div>
+            <div class="bc-ctrl">
+              <label>তারিখ / স্থান</label>
+              <input type="text" id="ctrl-date" placeholder="তারিখ বা স্থান">
+            </div>
+            <div class="bc-divider"></div>
+            <div class="bc-ctrl">
+              <label>রঙ পরিবর্তন</label>
+              <div class="bc-color-row" id="bc-colors"></div>
+            </div>
+            <div class="bc-divider"></div>
+            <div class="bc-font-section">
+              <label><i class="ti ti-typography" aria-hidden="true"></i> Font নির্বাচন</label>
+              <div class="bc-font-grid" id="bc-fonts"></div>
+              <div class="bc-font-upload" id="bc-font-upload" style="margin-top:5px">
+                <i class="ti ti-upload" aria-hidden="true"></i>
+                নিজের Font আপলোড করুন <span class="bc-pro-badge">PRO</span>
+              </div>
+            </div>
+            <div class="bc-divider"></div>
+            <div class="bc-ctrl">
+              <label>Card আকার</label>
+              <div class="bc-size-row" id="bc-sizes"></div>
+            </div>
+          </div>
+          <div id="bc-actions">
+            <button class="bc-dl-btn" id="bc-dl"><i class="ti ti-download" aria-hidden="true"></i> ডাউনলোড</button>
+            <button class="bc-save-btn" title="সংরক্ষণ করুন"><i class="ti ti-bookmark" aria-hidden="true"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bc-toast" id="bc-toast"></div>
+</div>
+
+<script>
+const FONTS = [
+  {name:"Hind Siliguri",label:"হিন্দ সিলিগুড়ি",free:true},
+  {name:"Noto Sans Bengali",label:"নোটো সান্স",free:true},
+  {name:"Tiro Bangla",label:"তিরো বাংলা",free:true},
+  {name:"'Hind Siliguri',serif",label:"সেরিফ মিক্স",free:true},
+  {name:"SolaimanLipi",label:"সোলায়মান লিপি",free:false},
+  {name:"Kalpurush",label:"কল্পুরুষ",free:false},
+  {name:"Li Ador Noirrit",label:"লি আদর",free:false},
+  {name:"Ekushey Lohit",label:"একুশে লোহিত",free:false},
+];
+const SIZES = ["পোস্ট","স্টোরি","কার্ড","পোস্টার"];
+const PALETTES = [
+  ["#0A2318","#C8962E"],["#8B0000","#FFD700"],["#1A1A2E","#9B59B6"],
+  ["#004D40","#80CBC4"],["#1B3A4B","#F0AD3A"],["#2E0B00","#E8C4A0"],
+  ["#0D1B2A","#55EFC4"],["#880E4F","#F48FB1"],["#1A3300","#ADFF2F"],
+  ["#000000","#FFFFFF"],["#002244","#87CEEB"],["#3B0764","#E879F9"],
+];
+
+const SEGMENTS = {
+  "জাতীয় দিবস":[
+    {key:"independence",label:"স্বাধীনতা দিবস",icon:"ti-flag",arabic:"",main:"স্বাধীনতা দিবস",sub:"২৬ শে মার্চ",pal:0},
+    {key:"bijoy",label:"বিজয় দিবস",icon:"ti-flag-3",arabic:"",main:"বিজয় দিবস",sub:"১৬ই ডিসেম্বর",pal:0},
+    {key:"shahid",label:"শহীদ দিবস",icon:"ti-rosette",arabic:"",main:"শহীদ দিবস",sub:"আন্তর্জাতিক মাতৃভাষা দিবস",pal:0},
+    {key:"shok",label:"জাতীয় শোক দিবস",icon:"ti-candle",arabic:"",main:"জাতীয় শোক দিবস",sub:"১৫ই আগস্ট",pal:0},
+    {key:"constitution",label:"সংবিধান দিবস",icon:"ti-file-certificate",arabic:"",main:"সংবিধান দিবস",sub:"বাংলাদেশ",pal:0},
+    {key:"armed",label:"সশস্ত্র বাহিনী দিবস",icon:"ti-shield",arabic:"",main:"সশস্ত্র বাহিনী দিবস",sub:"বীর সেনাদের প্রতি শ্রদ্ধা",pal:0},
+    {key:"flag_day",label:"জাতীয় পতাকা দিবস",icon:"ti-flag-2",arabic:"",main:"জাতীয় পতাকা দিবস",sub:"বাংলাদেশ",pal:0},
+    {key:"buddhi",label:"শহীদ বুদ্ধিজীবী দিবস",icon:"ti-school",arabic:"",main:"শহীদ বুদ্ধিজীবী দিবস",sub:"১৪ই ডিসেম্বর",pal:0},
+    {key:"genocide",label:"গণহত্যা দিবস",icon:"ti-candle",arabic:"",main:"গণহত্যা দিবস",sub:"২৫শে মার্চ",pal:0},
+    {key:"mujibnagar",label:"মুজিবনগর দিবস",icon:"ti-map-pin",arabic:"",main:"মুজিবনগর দিবস",sub:"১৭ই এপ্রিল",pal:0},
+  ],
+  "বাংলা উৎসব":[
+    {key:"boishakh",label:"পহেলা বৈশাখ",icon:"ti-sun",arabic:"",main:"শুভ নববর্ষ",sub:"পহেলা বৈশাখ ১৪৩২",pal:1},
+    {key:"mela",label:"বৈশাখী মেলা",icon:"ti-confetti",arabic:"",main:"বৈশাখী মেলা",sub:"আসুন আনন্দে মেতে উঠি",pal:1},
+    {key:"halkhata",label:"হালখাতা",icon:"ti-book",arabic:"",main:"শুভ হালখাতা",sub:"নতুন বছরের শুরুতে",pal:1},
+    {key:"nabanna",label:"নবন্ন উৎসব",icon:"ti-plant",arabic:"",main:"নবন্ন উৎসব",sub:"ফসলের উৎসব",pal:1},
+    {key:"poush",label:"পৌষ সংক্রান্তি",icon:"ti-snowflake",arabic:"",main:"পৌষ সংক্রান্তি",sub:"শুভেচ্ছা রইল",pal:1},
+    {key:"basanta",label:"বসন্ত উৎসব",icon:"ti-flower",arabic:"",main:"বসন্ত উৎসব",sub:"ফাগুনের রঙে",pal:4},
+    {key:"barsha",label:"বর্ষা উৎসব",icon:"ti-cloud-rain",arabic:"",main:"বর্ষা উৎসব",sub:"বৃষ্টির আনন্দে",pal:3},
+    {key:"sharat",label:"শরৎ উৎসব",icon:"ti-leaf",arabic:"",main:"শরৎ উৎসব",sub:"শিউলির সুবাসে",pal:4},
+    {key:"hemanta",label:"হেমন্ত উৎসব",icon:"ti-tree",arabic:"",main:"হেমন্ত উৎসব",sub:"হেমন্তের আবেশে",pal:4},
+    {key:"sheet",label:"শীত উৎসব",icon:"ti-snowflake",arabic:"",main:"শীত উৎসব",sub:"শীতের পিঠাপুলি",pal:0},
+  ],
+  "ধর্মীয় (ইসলাম)":[
+    {key:"eid_fitr",label:"ঈদ-উল-ফিতর",icon:"ti-moon",arabic:"عيد الفطر",main:"ঈদ মোবারক",sub:"ঈদ-উল-ফিতরের শুভেচ্ছা",pal:0},
+    {key:"eid_adha",label:"ঈদ-উল-আযহা",icon:"ti-moon-stars",arabic:"عيد الأضحى",main:"ঈদুল আযহা",sub:"কুরবানির ঈদের শুভেচ্ছা",pal:0},
+    {key:"ramadan",label:"রমজান মুবারক",icon:"ti-moon",arabic:"رمضان مبارك",main:"রমজান মুবারক",sub:"পবিত্র রমজানের শুভেচ্ছা",pal:0},
+    {key:"jumaatul",label:"জুমাতুল বিদা",icon:"ti-building-mosque",arabic:"جمعة الوداع",main:"জুমাতুল বিদা",sub:"পবিত্র জুমার শুভেচ্ছা",pal:0},
+    {key:"shabe_qadr",label:"শবে কদর",icon:"ti-moon-stars",arabic:"ليلة القدر",main:"শবে কদর",sub:"মহিমান্বিত রাত",pal:2},
+    {key:"shabe_barat",label:"শবে বরাত",icon:"ti-moon-stars",arabic:"ليلة البراءة",main:"শব-ই-বরাত",sub:"মাগফেরাতের রাত",pal:2},
+    {key:"milad",label:"ঈদে মিলাদুন্নবী",icon:"ti-star",arabic:"مولد النبي",main:"মিলাদুন্নবী",sub:"নবীজির জন্মদিন",pal:0},
+    {key:"ashura",label:"আশুরা",icon:"ti-candle",arabic:"عاشوراء",main:"পবিত্র আশুরা",sub:"মহররমের স্মরণে",pal:0},
+    {key:"hijri",label:"হিজরি নববর্ষ",icon:"ti-calendar",arabic:"رأس السنة الهجرية",main:"হিজরি নববর্ষ",sub:"নতুন বছরের শুভেচ্ছা",pal:0},
+    {key:"arafah",label:"আরাফাহ দিবস",icon:"ti-mountain",arabic:"يوم عرفة",main:"ইয়াওমে আরাফাহ",sub:"শুভেচ্ছা রইল",pal:0},
+  ],
+  "ধর্মীয় (হিন্দু)":[
+    {key:"durga",label:"দুর্গাপূজা",icon:"ti-sparkles",arabic:"",main:"শুভ দুর্গাপূজা",sub:"দেবী দুর্গার আশীর্বাদে",pal:1},
+    {key:"bijoya",label:"বিজয়া দশমী",icon:"ti-star",arabic:"",main:"শুভ বিজয়া",sub:"বিজয়া দশমীর শুভেচ্ছা",pal:1},
+    {key:"saraswati",label:"সরস্বতী পূজা",icon:"ti-music",arabic:"",main:"শুভ সরস্বতী পূজা",sub:"বিদ্যার দেবীর আশীর্বাদে",pal:5},
+    {key:"kali",label:"কালী পূজা",icon:"ti-moon",arabic:"",main:"শুভ কালীপূজা",sub:"দেবী কালীর আশীর্বাদে",pal:0},
+    {key:"lakshmi",label:"লক্ষ্মী পূজা",icon:"ti-flower",arabic:"",main:"শুভ লক্ষ্মীপূজা",sub:"দেবী লক্ষ্মীর কৃপায়",pal:4},
+    {key:"janmashtami",label:"জন্মাষ্টমী",icon:"ti-star",arabic:"",main:"শুভ জন্মাষ্টমী",sub:"শ্রীকৃষ্ণের জন্মদিনে",pal:3},
+    {key:"dol",label:"দোলযাত্রা",icon:"ti-palette",arabic:"",main:"শুভ দোলযাত্রা",sub:"রঙের উৎসবে",pal:11},
+    {key:"rath",label:"রথযাত্রা",icon:"ti-car",arabic:"",main:"শুভ রথযাত্রা",sub:"জগন্নাথের রথে",pal:1},
+    {key:"shiv",label:"শিবরাত্রি",icon:"ti-moon",arabic:"",main:"শুভ মহাশিবরাত্রি",sub:"শিবের আশীর্বাদে",pal:2},
+    {key:"hindu_ny",label:"বাংলা হিন্দু নববর্ষ",icon:"ti-calendar",arabic:"",main:"শুভ নববর্ষ",sub:"বাংলা হিন্দু নববর্ষে",pal:1},
+  ],
+  "ধর্মীয় (বৌদ্ধ ও খ্রিস্টান)":[
+    {key:"buddha",label:"বুদ্ধ পূর্ণিমা",icon:"ti-moon",arabic:"",main:"শুভ বুদ্ধ পূর্ণিমা",sub:"শান্তির আলোয়",pal:3},
+    {key:"chibar",label:"কঠিন চীবর দান",icon:"ti-gift",arabic:"",main:"কঠিন চীবর দান",sub:"পুণ্যের অনুষ্ঠানে",pal:3},
+    {key:"christmas",label:"বড়দিন",icon:"ti-christmas-tree",arabic:"",main:"শুভ বড়দিন",sub:"Merry Christmas",pal:0},
+    {key:"christmas2",label:"শুভ বড়দিন",icon:"ti-star",arabic:"",main:"Merry Christmas",sub:"শুভ বড়দিনের শুভেচ্ছা",pal:0},
+    {key:"easter",label:"ইস্টার",icon:"ti-egg",arabic:"",main:"শুভ ইস্টার",sub:"Happy Easter",pal:4},
+    {key:"goodfriday",label:"গুড ফ্রাইডে",icon:"ti-cross",arabic:"",main:"গুড ফ্রাইডে",sub:"Good Friday",pal:0},
+  ],
+  "সাহিত্য ও সংস্কৃতি":[
+    {key:"rabindra",label:"রবীন্দ্র জয়ন্তী",icon:"ti-pen",arabic:"",main:"রবীন্দ্র জয়ন্তী",sub:"বিশ্বকবির জন্মদিনে",pal:4},
+    {key:"nazrul",label:"নজরুল জয়ন্তী",icon:"ti-music",arabic:"",main:"নজরুল জয়ন্তী",sub:"জাতীয় কবির জন্মদিনে",pal:1},
+    {key:"falgun",label:"পহেলা ফাল্গুন",icon:"ti-flower",arabic:"",main:"পহেলা ফাল্গুন",sub:"বসন্তের প্রথম দিন",pal:4},
+    {key:"poetry",label:"বিশ্ব কবিতা দিবস",icon:"ti-pen-line",arabic:"",main:"বিশ্ব কবিতা দিবস",sub:"কবিতার আলোয়",pal:11},
+    {key:"sahitya",label:"বাংলা সাহিত্য দিবস",icon:"ti-book",arabic:"",main:"বাংলা সাহিত্য দিবস",sub:"ভাষার সম্মানে",pal:0},
+    {key:"natya",label:"নাট্য দিবস",icon:"ti-masks-theater",arabic:"",main:"বিশ্ব নাট্য দিবস",sub:"নাটকের জগতে",pal:11},
+    {key:"sangit",label:"সংগীত দিবস",icon:"ti-music",arabic:"",main:"বিশ্ব সংগীত দিবস",sub:"সুরের উৎসবে",pal:3},
+    {key:"charukala",label:"চারুকলা দিবস",icon:"ti-palette",arabic:"",main:"চারুকলা দিবস",sub:"শিল্পের মেলায়",pal:11},
+    {key:"film",label:"চলচ্চিত্র দিবস",icon:"ti-video",arabic:"",main:"চলচ্চিত্র দিবস",sub:"বাংলা সিনেমার জয়",pal:0},
+    {key:"lok",label:"লোকসংস্কৃতি উৎসব",icon:"ti-confetti",arabic:"",main:"লোকসংস্কৃতি উৎসব",sub:"বাংলার ঐতিহ্যে",pal:1},
+  ],
+  "আন্তর্জাতিক দিবস":[
+    {key:"women",label:"আন্তর্জাতিক নারী দিবস",icon:"ti-gender-female",arabic:"",main:"আন্তর্জাতিক নারী দিবস",sub:"নারীর শক্তিতে",pal:11},
+    {key:"men",label:"আন্তর্জাতিক পুরুষ দিবস",icon:"ti-gender-male",arabic:"",main:"আন্তর্জাতিক পুরুষ দিবস",sub:"পুরুষের সম্মানে",pal:3},
+    {key:"mother",label:"বিশ্ব মা দিবস",icon:"ti-heart",arabic:"",main:"বিশ্ব মা দিবস",sub:"মায়ের প্রতি ভালোবাসা",pal:11},
+    {key:"father",label:"বিশ্ব বাবা দিবস",icon:"ti-heart",arabic:"",main:"বিশ্ব বাবা দিবস",sub:"বাবার প্রতি শ্রদ্ধা",pal:3},
+    {key:"teacher",label:"বিশ্ব শিক্ষক দিবস",icon:"ti-school",arabic:"",main:"বিশ্ব শিক্ষক দিবস",sub:"শিক্ষকের সম্মানে",pal:4},
+    {key:"child",label:"আন্তর্জাতিক শিশু দিবস",icon:"ti-baby-carriage",arabic:"",main:"আন্তর্জাতিক শিশু দিবস",sub:"শিশুর হাসিতে",pal:4},
+    {key:"book",label:"বিশ্ব বই দিবস",icon:"ti-books",arabic:"",main:"বিশ্ব বই দিবস",sub:"বইয়ের জগতে",pal:4},
+    {key:"env",label:"বিশ্ব পরিবেশ দিবস",icon:"ti-leaf",arabic:"",main:"বিশ্ব পরিবেশ দিবস",sub:"সবুজ পৃথিবীর জন্য",pal:3},
+    {key:"water",label:"বিশ্ব পানি দিবস",icon:"ti-droplet",arabic:"",main:"বিশ্ব পানি দিবস",sub:"পানির সংরক্ষণে",pal:3},
+    {key:"health",label:"বিশ্ব স্বাস্থ্য দিবস",icon:"ti-heart-rate-monitor",arabic:"",main:"বিশ্ব স্বাস্থ্য দিবস",sub:"সুস্বাস্থ্যের শুভেচ্ছা",pal:3},
+    {key:"mental",label:"বিশ্ব মানসিক স্বাস্থ্য দিবস",icon:"ti-brain",arabic:"",main:"মানসিক স্বাস্থ্য দিবস",sub:"সুস্থ মন, সুখী জীবন",pal:2},
+    {key:"food",label:"বিশ্ব খাদ্য দিবস",icon:"ti-salad",arabic:"",main:"বিশ্ব খাদ্য দিবস",sub:"ক্ষুধামুক্ত পৃথিবীর জন্য",pal:1},
+    {key:"human",label:"বিশ্ব মানবাধিকার দিবস",icon:"ti-scale",arabic:"",main:"মানবাধিকার দিবস",sub:"অধিকারের পক্ষে",pal:0},
+    {key:"youth",label:"আন্তর্জাতিক যুব দিবস",icon:"ti-users",arabic:"",main:"আন্তর্জাতিক যুব দিবস",sub:"তরুণ প্রজন্মের শক্তিতে",pal:3},
+  ],
+  "শিক্ষা":[
+    {key:"ssc",label:"এসএসসি শুভেচ্ছা",icon:"ti-certificate",arabic:"",main:"এসএসসি শুভেচ্ছা",sub:"অভিনন্দন!",pal:3},
+    {key:"hsc",label:"এইচএসসি শুভেচ্ছা",icon:"ti-certificate-2",arabic:"",main:"এইচএসসি শুভেচ্ছা",sub:"অভিনন্দন!",pal:3},
+    {key:"admission",label:"ভর্তি শুভেচ্ছা",icon:"ti-door-enter",arabic:"",main:"ভর্তি অভিনন্দন",sub:"নতুন অধ্যায়ের শুরু",pal:3},
+    {key:"graduation",label:"গ্র্যাজুয়েশন",icon:"ti-school",arabic:"",main:"অভিনন্দন গ্র্যাজুয়েট",sub:"Congratulations!",pal:0},
+    {key:"convocation",label:"সমাবর্তন",icon:"ti-award",arabic:"",main:"শুভ সমাবর্তন",sub:"জ্ঞানের আলোয় আলোকিত",pal:0},
+    {key:"scholarship",label:"স্কলারশিপ অভিনন্দন",icon:"ti-star",arabic:"",main:"স্কলারশিপ অর্জন",sub:"অভিনন্দন!",pal:4},
+    {key:"result",label:"রেজাল্ট শুভেচ্ছা",icon:"ti-trophy",arabic:"",main:"রেজাল্ট অভিনন্দন",sub:"কৃতিত্বের সাথে উত্তীর্ণ",pal:4},
+    {key:"school_new",label:"নতুন স্কুল জীবন",icon:"ti-school",arabic:"",main:"স্কুলে স্বাগতম",sub:"নতুন জীবনের শুরু",pal:4},
+    {key:"college_new",label:"নতুন কলেজ জীবন",icon:"ti-building",arabic:"",main:"কলেজে স্বাগতম",sub:"নতুন অধ্যায়",pal:3},
+    {key:"uni_new",label:"নতুন বিশ্ববিদ্যালয় জীবন",icon:"ti-building-community",arabic:"",main:"বিশ্ববিদ্যালয়ে স্বাগতম",sub:"উচ্চশিক্ষার পথে",pal:3},
+  ],
+  "ব্যক্তিগত উপলক্ষ":[
+    {key:"birthday",label:"জন্মদিন",icon:"ti-gift",arabic:"",main:"শুভ জন্মদিন",sub:"Happy Birthday",pal:11},
+    {key:"wedding",label:"শুভ বিবাহ",icon:"ti-heart",arabic:"",main:"শুভ বিবাহ",sub:"নতুন জীবনের শুরু",pal:4},
+    {key:"anniversary",label:"বিবাহ বার্ষিকী",icon:"ti-heart-handshake",arabic:"",main:"বিবাহ বার্ষিকী",sub:"ভালোবাসার বন্ধনে",pal:11},
+    {key:"engagement",label:"বাগদান",icon:"ti-diamond",arabic:"",main:"শুভ বাগদান",sub:"ভালোবাসার প্রতিশ্রুতি",pal:5},
+    {key:"holud",label:"গায়ে হলুদ",icon:"ti-sun",arabic:"",main:"গায়ে হলুদ",sub:"শুভ অনুষ্ঠানে",pal:1},
+    {key:"akad",label:"আকদ",icon:"ti-heart",arabic:"النكاح",main:"আকদ অনুষ্ঠান",sub:"শুভ আকদ",pal:0},
+    {key:"newborn",label:"নবজাতকের আগমন",icon:"ti-baby-carriage",arabic:"",main:"নতুন শিশুর আগমন",sub:"স্বাগতম ছোট্ট সোনামণি",pal:4},
+    {key:"aqiqah",label:"আকিকা",icon:"ti-star",arabic:"العقيقة",main:"আকিকা অনুষ্ঠান",sub:"আমন্ত্রণ রইল",pal:0},
+    {key:"naming",label:"নামকরণ",icon:"ti-writing",arabic:"",main:"নামকরণ অনুষ্ঠান",sub:"শুভ নামকরণে",pal:4},
+    {key:"griho",label:"গৃহপ্রবেশ",icon:"ti-home",arabic:"",main:"গৃহপ্রবেশ অনুষ্ঠান",sub:"নতুন বাড়িতে স্বাগতম",pal:3},
+  ],
+  "শুভেচ্ছা ও সামাজিক":[
+    {key:"good_morning",label:"শুভ সকাল",icon:"ti-sun",arabic:"",main:"শুভ সকাল",sub:"Good Morning",pal:4},
+    {key:"good_night",label:"শুভ রাত্রি",icon:"ti-moon",arabic:"",main:"শুভ রাত্রি",sub:"Good Night",pal:2},
+    {key:"thanks",label:"ধন্যবাদ",icon:"ti-heart",arabic:"",main:"ধন্যবাদ",sub:"Thank You",pal:3},
+    {key:"congrats",label:"অভিনন্দন",icon:"ti-trophy",arabic:"",main:"অভিনন্দন",sub:"Congratulations!",pal:4},
+    {key:"wishes",label:"শুভকামনা",icon:"ti-star",arabic:"",main:"শুভকামনা",sub:"Best Wishes",pal:3},
+    {key:"recovery",label:"দ্রুত সুস্থতা",icon:"ti-heart-rate-monitor",arabic:"",main:"দ্রুত সুস্থ হন",sub:"Get Well Soon",pal:3},
+    {key:"condolence",label:"সমবেদনা",icon:"ti-candle",arabic:"",main:"গভীর সমবেদনা",sub:"ইন্না লিল্লাহি",pal:0},
+    {key:"farewell",label:"বিদায় সংবর্ধনা",icon:"ti-door-exit",arabic:"",main:"বিদায় সংবর্ধনা",sub:"শুভকামনায়",pal:4},
+    {key:"welcome",label:"স্বাগতম",icon:"ti-door-enter",arabic:"",main:"স্বাগতম",sub:"Welcome!",pal:3},
+    {key:"travel",label:"শুভ ভ্রমণ",icon:"ti-plane",arabic:"",main:"শুভ ভ্রমণ",sub:"Have a Safe Journey",pal:3},
+  ],
+};
+
+const BG_VARIANTS = [
+  (p)=>`linear-gradient(135deg,${p[0]},${p[1]})`,
+  (p)=>`linear-gradient(160deg,${p[1]} 0%,${p[0]} 100%)`,
+  (p)=>`radial-gradient(ellipse at top,${p[1]},${p[0]})`,
+  (p)=>p[0],
+  (p)=>p[1],
+  (p)=>`linear-gradient(180deg,${p[0]},${p[1]})`,
+  (p)=>`linear-gradient(45deg,${p[0]} 30%,${p[1]} 70%)`,
+  (p)=>`linear-gradient(120deg,${p[1]} 0%,${p[0]} 60%)`,
+  (p)=>`radial-gradient(circle at bottom right,${p[1]},${p[0]})`,
+  (p)=>`linear-gradient(200deg,${p[0]},${p[1]})`,
+];
+
+let activeCat = null, activeSeg = null, selIdx = -1;
+let curPalIdx = 0, curFontIdx = 0, curSizeIdx = 0;
+let customFontName = null;
+
+function getTemplates(catKey, seg){
+  const p = PALETTES[seg.pal];
+  return BG_VARIANTS.map((fn,i)=>({
+    bg: fn(p),
+    accent: i%2===0 ? p[1] : p[0],
+    textColor: "#fff",
+    arabic: seg.arabic,
+    main: seg.main,
+    sub: seg.sub,
+    palIdx: seg.pal,
+    variant: i,
+  }));
+}
+
+function buildSidebar(){
+  const sb = document.getElementById("bc-sidebar");
+  sb.innerHTML = "";
+  Object.entries(SEGMENTS).forEach(([grp, segs])=>{
+    const lbl = document.createElement("div");
+    lbl.className = "bc-group-label";
+    lbl.textContent = grp;
+    sb.appendChild(lbl);
+    segs.forEach(seg=>{
+      const item = document.createElement("div");
+      item.className = "bc-cat" + (activeSeg && activeSeg.key===seg.key?" active":"");
+      item.dataset.key = seg.key;
+      item.dataset.grp = grp;
+      item.innerHTML = `<i class="ti ${seg.icon}" aria-hidden="true"></i>${seg.label}<span class="bc-cat-count">10</span>`;
+      item.addEventListener("click",()=>selectSeg(grp, seg, item));
+      sb.appendChild(item);
+    });
+  });
+}
+
+function selectSeg(grp, seg, el){
+  document.querySelectorAll(".bc-cat").forEach(x=>x.classList.remove("active"));
+  el.classList.add("active");
+  activeSeg = seg;
+  selIdx = -1;
+  renderGallery(seg);
+}
+
+function renderGallery(seg){
+  const grid = document.getElementById("bc-grid");
+  const title = document.getElementById("bc-cat-title");
+  title.textContent = seg.label;
+  document.getElementById("bc-cat-count").textContent = "10 templates";
+  grid.innerHTML = "";
+  const templates = getTemplates(null, seg);
+  templates.forEach((t,i)=>{
+    const card = document.createElement("div");
+    card.className = "bc-tcard" + (selIdx===i?" sel":"");
+    const fs = Math.min(12, Math.max(8, Math.floor(22/t.main.length)));
+    card.innerHTML = `<div class="bc-tcard-inner" style="background:${t.bg}">
+      ${t.arabic?`<div class="bc-tcard-arabic" style="color:${t.accent}">${t.arabic}</div>`:""}
+      <div class="bc-tcard-main" style="color:${t.accent};font-size:${fs}px">${t.main}</div>
+      <div class="bc-tcard-sub" style="color:#fff;font-size:8px">${t.sub}</div>
+      <div class="bc-tcard-hover"><span>সম্পাদনা</span></div>
+    </div>`;
+    card.addEventListener("click",()=>{selIdx=i; renderGallery(seg); openEditor(t, i);});
+    grid.appendChild(card);
+  });
+}
+
+function openEditor(t, idx){
+  document.getElementById("bc-empty").style.display = "none";
+  const form = document.getElementById("bc-edform");
+  form.style.display = "flex";
+  document.getElementById("bc-ed-sub").textContent = activeSeg?.label||"";
+  document.getElementById("ctrl-main").value = t.main;
+  document.getElementById("ctrl-sub").value = t.sub;
+  document.getElementById("ctrl-name").value = "";
+  document.getElementById("ctrl-date").value = "";
+  curPalIdx = t.palIdx;
+  curFontIdx = 0;
+  curSizeIdx = 0;
+  renderColorPicker();
+  renderFontPicker();
+  renderSizePicker();
+  updatePreview(t);
+}
+
+function updatePreview(tOverride){
+  const t = tOverride || getCurrentTpl();
+  if(!t) return;
+  const p = PALETTES[curPalIdx];
+  const bg = BG_VARIANTS[selIdx>=0?selIdx:0](p);
+  const accent = p[1];
+  const pc = document.getElementById("bc-pcard");
+  pc.style.background = bg;
+  const font = customFontName || FONTS[curFontIdx].name;
+  pc.style.fontFamily = font;
+  document.getElementById("pc-arabic").textContent = t.arabic||"";
+  document.getElementById("pc-arabic").style.color = accent;
+  document.getElementById("pc-main").textContent = document.getElementById("ctrl-main").value||t.main;
+  document.getElementById("pc-main").style.color = accent;
+  document.getElementById("pc-main").style.fontFamily = font;
+  document.getElementById("pc-sub").textContent = document.getElementById("ctrl-sub").value||t.sub;
+  document.getElementById("pc-sub").style.color = "#fff";
+  const nm = document.getElementById("ctrl-name").value;
+  const dt = document.getElementById("ctrl-date").value;
+  document.getElementById("pc-name-disp").textContent = [nm,dt].filter(Boolean).join(" • ");
+  document.getElementById("pc-name-disp").style.color = "rgba(255,255,255,0.6)";
+}
+
+function getCurrentTpl(){
+  if(!activeSeg) return null;
+  return getTemplates(null, activeSeg)[selIdx>=0?selIdx:0];
+}
+
+function renderColorPicker(){
+  const row = document.getElementById("bc-colors");
+  row.innerHTML = "";
+  PALETTES.forEach((p,i)=>{
+    const d = document.createElement("div");
+    d.className = "bc-cdot" + (i===curPalIdx?" active":"");
+    d.style.background = `linear-gradient(135deg,${p[0]} 50%,${p[1]} 50%)`;
+    d.title = `রঙ ${i+1}`;
+    d.addEventListener("click",()=>{curPalIdx=i; renderColorPicker(); updatePreview();});
+    row.appendChild(d);
+  });
+}
+
+function renderFontPicker(){
+  const row = document.getElementById("bc-fonts");
+  row.innerHTML = "";
+  FONTS.forEach((f,i)=>{
+    const b = document.createElement("div");
+    const isPro = !f.free;
+    b.className = "bc-font-btn" + (i===curFontIdx&&!customFontName?" active":"") + (isPro?" pro-font":"");
+    b.textContent = f.label;
+    b.style.fontFamily = f.free ? f.name : "inherit";
+    b.title = isPro ? "Pro plan প্রয়োজন" : f.label;
+    b.addEventListener("click",()=>{
+      if(isPro){showToast("Pro plan-এ Font ব্যবহার করুন");return;}
+      customFontName=null; curFontIdx=i; renderFontPicker(); updatePreview();
+    });
+    row.appendChild(b);
+  });
+}
+
+function renderSizePicker(){
+  const row = document.getElementById("bc-sizes");
+  row.innerHTML = "";
+  SIZES.forEach((s,i)=>{
+    const b = document.createElement("div");
+    b.className = "bc-size-btn" + (i===curSizeIdx?" active":"");
+    b.textContent = s;
+    b.addEventListener("click",()=>{curSizeIdx=i; renderSizePicker(); showToast(`${s} সাইজ সেট হয়েছে`);});
+    row.appendChild(b);
+  });
+}
+
+["ctrl-main","ctrl-sub","ctrl-name","ctrl-date"].forEach(id=>{
+  const el = document.getElementById(id);
+  if(el) el.addEventListener("input", ()=>updatePreview());
+});
+
+document.getElementById("bc-dl").addEventListener("click",()=>{
+  showToast("PNG ডাউনলোড হচ্ছে...");
+});
+
+document.getElementById("bc-font-upload").addEventListener("click",()=>{
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = ".ttf,.otf,.woff,.woff2";
+  input.onchange = (e)=>{
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev)=>{
+      const style = document.createElement("style");
+      style.textContent = `@font-face{font-family:'${file.name.replace(/\.\w+$/,"")}';src:url('${ev.target.result}')}`;
+      document.head.appendChild(style);
+      customFontName = `'${file.name.replace(/\.\w+$/,"")}'`;
+      curFontIdx = -1;
+      renderFontPicker();
+      updatePreview();
+      showToast(`"${file.name}" আপলোড হয়েছে ✓`);
+    };
+    reader.readAsDataURL(file);
+  };
+  input.click();
+});
+
+document.getElementById("bc-search").addEventListener("input", (e)=>{
+  const q = e.target.value.trim();
+  if(!q){
+    if(activeSeg) renderGallery(activeSeg);
+    return;
+  }
+  const grid = document.getElementById("bc-grid");
+  const title = document.getElementById("bc-cat-title");
+  grid.innerHTML = "";
+  let count = 0;
+  Object.entries(SEGMENTS).forEach(([grp, segs])=>{
+    segs.filter(s=>s.label.includes(q)||s.main.includes(q)||grp.includes(q)).forEach(seg=>{
+      const t = getTemplates(null, seg)[0];
+      const card = document.createElement("div");
+      card.className = "bc-tcard";
+      const fs = Math.min(12,Math.max(8,Math.floor(22/t.main.length)));
+      card.innerHTML = `<div class="bc-tcard-inner" style="background:${t.bg}">
+        ${t.arabic?`<div class="bc-tcard-arabic" style="color:${t.accent}">${t.arabic}</div>`:""}
+        <div class="bc-tcard-main" style="color:${t.accent};font-size:${fs}px">${t.main}</div>
+        <div class="bc-tcard-sub" style="color:#fff;font-size:8px">${t.sub}</div>
+        <div class="bc-tcard-hover"><span>সম্পাদনা</span></div>
+      </div>`;
+      card.addEventListener("click",()=>{activeSeg=seg; selIdx=0; renderGallery(seg); openEditor(t,0);});
+      grid.appendChild(card);
+      count++;
+    });
+  });
+  title.textContent = `"${q}" — ${count}টি ফলাফল`;
+  document.getElementById("bc-cat-count").textContent = `${count} results`;
+});
+
+function showToast(msg){
+  const t = document.getElementById("bc-toast");
+  t.textContent = msg;
+  t.style.display = "block";
+  clearTimeout(t._tm);
+  t._tm = setTimeout(()=>t.style.display="none", 2500);
+}
+
+buildSidebar();
+const firstGrp = Object.values(SEGMENTS)[2];
+const firstSeg = firstGrp[0];
+const firstEl = document.querySelector('.bc-cat');
+if(firstEl){
+  document.querySelectorAll(".bc-cat").forEach((el,i)=>{
+    if(i===20){ el.classList.add("active"); activeSeg=firstSeg; renderGallery(firstSeg); }
+  });
+}
+</script>
